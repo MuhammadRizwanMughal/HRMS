@@ -1,0 +1,39 @@
+<% @temp = 0 %>
+<% @user.leaves.each do |u| %>
+	<%if u.status == 'pending' %>
+		<% @temp = 1 %>
+	<% else %>
+		<% @temp = 0 %>
+	<% end %>
+<% end %>
+
+<% if @temp != 0 %>
+	<h1>Approval Section</h1>
+	<table  class="table-bordered table-striped table-hover table-condensed table-responsive">
+		<tr>
+			<th>Day Count</th>
+			<th>Start Date</th>
+			<th>End Date</th>
+			<th>Status</th>
+			<th>Description</th>
+			<th colspan="2">Approve??</th>
+		</tr>
+		<% @leaves.each do |l| %>
+				<% if l.status == 'pending' %>
+				<tr>
+					<td><%= (l.edate + 1 - l.sdate).to_i %></td>
+					<td><%= l.sdate %></td>
+					<td><%= l.edate %></td>
+					<td><%= l.status %></td>
+					<td><%= l.description %></td>
+					<td>
+						<%= button_to "Approve", admin_user_leave_user_leave_approval_decision_path(leave_id: l.id), remote: true,:class => "btn-success",:method => :get, :id => 'approvalButton', :name => 'leave_approval_decision' %>
+					</td>
+					<td>
+						<%= button_to "Denied", admin_user_leave_user_leave_approval_decision_path(leave_id: l.id), remote: true, :class => "btn-danger", :method => :get, :id => 'denyButton', :name => 'leave_approval_decision' %>
+					</td>
+			</tr>
+			<% end %>
+		<% end %>
+	</table>
+<% end %>

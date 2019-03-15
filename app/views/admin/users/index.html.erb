@@ -1,0 +1,43 @@
+<div class="container-fluid">
+	<% if User.count == 0 || User.count < 0 %>
+		<p> No Users to show </p>
+	<% else %>
+		<h1>Showing all Users</h1>
+		<table class="table-bordered table-striped table-hover table-condensed table-responsive">
+			<tr>
+				<th>Firstname</th>
+				<th>Lastname</th>
+				<th>Username</th>
+				<th>Email</th>
+				<th>Mobile</th>
+				<th>Address</th>
+				<th>DOB</th>
+				<th>Gender</th>
+				<th>Total Leaves</th>
+				<th>Leaves Taken</th>
+				<th>Leaves Left</th>
+				<th colspan="2">Operations</th>
+			</tr>
+			<tr>
+				<% @users.each do |u| %>
+					<% if u.admin != true %>
+						<td><%= u.fname %></td>
+						<td><%= u.lname %></td>
+						<td><%= u.uname %></td>
+					 	<td><%= u.email %></td>
+						<td><%= u.mobile %></td>
+						<td><%= u.address %></td>
+						<td><%= u.dob %></td>
+						<td><%= u.gender %></td>
+						<td><%= u.total_leave %></td>
+						<td><%= u.leaves_taken %></td>
+						<td><%= u.leave_left %></td>
+						<td><%= link_to 'View', admin_user_path(u.id) %></td>
+						<td><%= link_to 'Delete',  admin_user_path(u.id), method: :delete, data: { confirm: 'Pressing Yes will delete user data permanently!!!!' } %></td>
+				<% end %>
+			</tr>
+				<% end %>
+		</table>
+	<% end %>
+</div>
+

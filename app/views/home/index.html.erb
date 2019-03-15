@@ -1,0 +1,15 @@
+<div class="container-fluid">
+	<h1>Home</h1>
+		<% if current_user %>
+			<%= link_to 'SignOut',  destroy_user_session_path, method: :delete, style:'font-size:50px;'  %>
+		<% else %>		
+	<div class="row">
+			<div class="col-xs-6">
+					<%= link_to 'Sign-In', new_user_session_path, style:'font-size:50px;' %> 						
+			</div>
+			<div class="col-xs-6">
+					<%= link_to 'Sign-Up', new_user_registration_path, style:'font-size:50px;' %>		
+			</div>
+	</div>
+		<% end %>
+</div>

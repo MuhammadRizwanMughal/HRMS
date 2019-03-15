@@ -1,0 +1,33 @@
+<div class="container-fluid">
+  <h1>Users#id#Leaves#new</h1>
+  <p><%= link_to 'Back',user_path(@user) %> to details.</p>
+
+  <h2>Apply for Leave</h2>
+
+  <%= form_with(model: [ @user, @user.leaves.build ], local: true, id: 'leave_form') do |form| %>
+
+    <p>
+      Leave Type<br>
+      <%= form.select :leave_type, options_for_select([['Casual Leave', 'Casual Leave'], ['Sick/Medical Leave', 'Sick/Medical Leave'], ['Privilege Leave', 'Privilege Leave' ]]) %>
+    </p>
+
+    <p>
+      Start Date<br>
+      <%= form.date_field :sdate, min: Date.today %>
+    </p>
+   
+    <p>
+      End Date<br>
+      <%= form.date_field :edate, max: Date.today + @user.leave_left - 1, min: Date.today %>
+    </p>
+
+    <p>
+      Description<br>
+      <%= form.text_area :description %>
+    </p>
+
+    <p>
+      <%= form.submit "Apply for Leave"%>
+    </p>
+  <% end %>
+</div>

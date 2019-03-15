@@ -1,0 +1,25 @@
+<h1>Showing leave history of <%= @user.fname %> <%= @user.lname %></h1>
+<% if @user.leaves.present? %>
+	<table class="table-bordered table-striped table-hover table-condensed table-responsive">
+		<tr>
+				<th>Start Date</th>
+				<th>End Date</th>
+				<th>Day Count</th>
+				<th>Status</th>
+				<th>Description</th>
+		</tr>
+			<% @leaves.each do |l| %>
+		<tr>
+			<td><%= (l.edate + 1 - l.sdate).to_i %></td>
+			<td><%= l.sdate %></td>
+			<td><%= l.edate %></td>
+			<td><%= l.status %></td>
+			<td><%= l.description %></td>
+		</tr>
+			<% end %>
+	</table>
+<% else %>
+	<%= @user.fname.capitalize %> has taken no leaves
+<% end %>
+<br>
+<p><%= link_to 'Back', admin_user_path(@user) %> to <%= @user.fname %>'s Info Page</p>

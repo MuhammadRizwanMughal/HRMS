@@ -1,0 +1,144 @@
+<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
+<script type="text/javascript">
+  $(document).ready(function (){
+    $("#new_user").validate({
+      errorPlacement: function (error, element) {
+        error.insertAfter(element);
+      },
+      rules: {
+        "user[fname]":{
+          required: true,
+        },
+        "user[lname]":{
+          required: true,
+        },
+        "user[uname]":{
+          required: true,
+          maxlength: 20,
+          minlength: 6
+        },
+        "user[email]":{
+          required: true,
+          email: true
+        },
+        "user[mobile]":{
+          required: true,
+          minlength: 10
+        },
+        "user[address]":{
+          required: true
+        },
+        "user[password]":{
+          required: true,
+          maxlength: 20,
+          minlength: 6,
+        },
+        "user[password_confirmation]":{
+          required: true,
+          maxlength: 20,
+          minlength: 6,
+          equalTo: "#user_password"
+        },
+        "user[dob]":{
+          required: true,
+        },
+        "user[gender]":{
+          required: true,
+        }
+      },
+      messages: {
+        "user[fname]":{
+          required: "Firstname is required.",
+        },
+        "user[lname]":{
+          required: "Lastname is required.",
+        },
+        "user[uname]":{
+          required: "Username is required.",
+          maxlength: "Username must be less than 20",
+          minlength: "Username must be more than 6"
+        },
+        "user[email]":{
+          required: "Email is required.",
+          email: "Must be in the format email@email.com"
+        },
+        "user[mobile]":{
+          required: "Mobile is required.",
+          minlength: "Mobile must be exactly 10 digits long"
+        },
+        "user[address]":{
+          required: "Address is required."
+        },
+        "user[password]":{
+          required: "Password is required",
+          maxlength: "Password must be atmost 20 characters long",
+          minlength: "Password must be atleast 6 characters long"
+        },
+        "user[dob]":{
+          required: "Date of Birth is required"
+        },
+        "user[gender]":{
+          required: "Select a gender"
+        }
+      }
+    })
+  });
+
+</script>
+
+<div class="container-fluid">
+  <h1>Sign up | <%= link_to 'LogIn', new_user_session_path %></h1>
+
+  <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+    <div class="field">
+      <%= f.text_field :fname, autofocus: true, autocomplete: "off", placeholder: 'Firstname' %>
+    </div>
+    <br>
+    <div class="field">
+      <%= f.text_field :lname, autofocus: true, autocomplete: "off", placeholder: 'Lastname' %>
+    </div>
+    <br>
+    <div class="field">
+      <%= f.text_field :uname, autofocus: true, autocomplete: "off", placeholder: 'Username' %>
+    </div>
+    <br>
+    <div class="field">
+      <%= f.text_field :email, autofocus: true, autocomplete: "off", placeholder: 'Email' %>
+    </div>
+    <br>
+     <div class="field">
+      <%= f.text_field :mobile, autofocus: true, autocomplete: "off", placeholder: 'Mobile' %>
+    </div>
+    <br>
+     <div class="field">
+      <%= f.text_field :address, autofocus: true, autocomplete: "off", placeholder: 'Address' %>
+    </div>
+    <div class="field">
+    <br />
+      <%= f.password_field :password, autocomplete: "new-password", placeholder: 'Password' %>
+    </div>
+    <br>
+    <div class="field">
+      <%= f.password_field :password_confirmation, autocomplete: "new-password", placeholder: 'Confirm Password' %>
+    </div>
+    <br>
+    <%= f.label :DOB, style:'color:#426a52;' %><br />
+     <div class="field">
+      <%= f.date_field :dob, autofocus: true, autocomplete: "off", min: "1950-01-01", max: "2018-12-31", style: 'width:230px;'%>
+    </div>
+    <br>
+    <div class="gender_field">
+      <%= f.label :Gender, style:'color:#426a52;' %><br />
+      <%= f.label :Male, style:'color:#426a52;' %>
+      <%= f.radio_button :gender, 'Male' %><br />
+      <%= f.label :Female, style:'color:#426a52;' %>
+      <%= f.radio_button :gender, 'Female' %>
+    </div>
+
+    <div class="actions">
+      <%= f.submit "Sign up", style: 'width:200px;' %>
+    </div>
+  <% end %>
+</div>
+
+

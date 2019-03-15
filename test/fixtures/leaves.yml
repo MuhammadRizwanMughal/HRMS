@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  sdate: 2019-03-08
+  edate: 2019-03-08
+  description: MyString
+  type: 
+  status: MyString
+  user: one
+
+two:
+  sdate: 2019-03-08
+  edate: 2019-03-08
+  description: MyString
+  type: 
+  status: MyString
+  user: two
