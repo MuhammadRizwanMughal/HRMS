@@ -14,7 +14,6 @@ class Admin::UsersController < ApplicationController
 
   def destroy
   		@user = User.find_by_id(params[:id])
-  		binding.pry
       @user.destroy
   		redirect_to admin_users_path
   end

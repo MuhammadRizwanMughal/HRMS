@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_03_11_140424) do
+ActiveRecord::Schema.define(version: 2019_03_20_105658) do
 
   create_table "leaves", force: :cascade do |t|
     t.date "sdate"
@@ -22,6 +22,17 @@ ActiveRecord::Schema.define(version: 2019_03_11_140424) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_leaves_on_user_id"
+  end
+
+  create_table "user_leave_distributions", force: :cascade do |t|
+    t.integer "p_leave"
+    t.integer "s_leave"
+    t.integer "c_leave"
+    t.integer "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "user_role"
+    t.index ["user_id"], name: "index_user_leave_distributions_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -42,9 +53,10 @@ ActiveRecord::Schema.define(version: 2019_03_11_140424) do
     t.datetime "updated_at", null: false
     t.boolean "admin", default: false
     t.integer "total_leave", default: 20
-    t.integer "leave_left", default: 20
+    t.integer "leave_left"
     t.string "leave_status", default: "none"
     t.integer "leaves_taken", default: 0
+    t.integer "leave_taken"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

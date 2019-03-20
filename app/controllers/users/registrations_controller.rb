@@ -2,6 +2,7 @@
 
 class Users::RegistrationsController < Devise::RegistrationsController
   before_action :configure_sign_up_params, only: [:create]
+  after_action :create_user_leave_distribution_entry, only: [:create]
   # before_action :configure_account_update_params, only: [:update]
 
   # GET /resource/sign_up
@@ -39,6 +40,12 @@ class Users::RegistrationsController < Devise::RegistrationsController
   #   super
   # end
 
+  def create_user_leave_distribution_entry
+    if current_user.admin != true 
+       entry = UserLeaveDistribution.create(s_leave: 10, c_leave: 10, p_leave: 10, user_id: current_user.id, user_role: "employee")
+       entry.save
+    end
+  end
   # protected
 
   # If you have extra params to permit, append them to the sanitizer.

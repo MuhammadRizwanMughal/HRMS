@@ -34,38 +34,58 @@
 
 <script type="text/javascript">
   $( "select" ).change(function () {    
-  document.getElementById("select_show").innerHTML="You selected: "+document.getElementById("leave_leave_type").value;  
+  document.getElementById("select_show").innerHTML="You have selected: "+document.getElementById("leave_leave_type").value;  
   });  
 </script>
 
-<div class="container-fluid">
-  <p><%= link_to 'Back',user_path(@user) %> to details.</p>
+<div class="container">
+  <div class="row">
+    <div class="col-md-6">
+      <p><%= link_to 'Back',user_path(@user) %> to details.</p>
 
-  <h2>Apply for Leave</h2>
+      <h2>Apply for Leave</h2>
 
-  <%= form_with(model: [ @user, @user.leaves.build ], local: true, id: 'leave_form') do |form| %>
-    <p>
-      Leave Type<br>
-      <%= form.select :leave_type, options_for_select([['Please select a leave type', ''],['Casual Leave', 'Casual Leave'], ['Sick/Medical Leave', 'Sick/Medical Leave'], ['Privilege Leave', 'Privilege Leave' ]], :selected => ['Please select a leave type', '']) %>
-    </p>
-    <span id="select_show"></span>  
-    <p>
-      Start Date<br>
-      <%= form.date_field :sdate, min: Date.today %>
-    </p>
-   
-    <p>
-      End Date<br>
-      <%= form.date_field :edate, min: Date.today %>
-    </p>
+      <%= form_with(model: [ @user, @user.leaves.build ], local: true, id: 'leave_form') do |form| %>
+        <p>
+          Leave Type<br>
+          <%= form.select :leave_type, options_for_select([['Please select a leave type', ''],['Casual Leave', 'Casual Leave'], ['Sick/Medical Leave', 'Sick/Medical Leave'], ['Priviledge Leave', 'Priviledge Leave' ]], :selected => ['Please select a leave type', '']) %>
+        </p>
+        <span id="select_show"></span>  
+        <p>
+          Start Date<br>
+          <%= form.date_field :sdate, min: Date.today %>
+        </p>
+       
+        <p>
+          End Date<br>
+          <%= form.date_field :edate, min: Date.today %>
+        </p>
 
-    <p>
-      Description<br>
-      <%= form.text_area :description %>
-    </p>
+        <p>
+          Description<br>
+          <%= form.text_area :description %>
+        </p>
 
-    <p>
-      <%= form.submit "Apply for Leave"%>
-    </p>
-  <% end %>
+        <p>
+          <%= form.submit "Apply for Leave"%>
+        </p>
+      <% end %>
+    </div>
+    <div class="col-md-6">
+      <br><br>  
+      <h3>Leaves left:</h3>
+      <table class = "table-bordered table-striped table-hover table-condensed table-responsive">
+        <tr>
+          <th>Casual leave</th>
+          <th>Priviledge leave</th>
+          <th>Sick/ Medical leave</th>
+        </tr>
+        <tr>
+          <td><%= @user.user_leave_distribution.c_leave %></td>
+          <td><%= @user.user_leave_distribution.p_leave %></td>
+          <td><%= @user.user_leave_distribution.s_leave %></td>
+        </tr>
+      </table>
+    </div>
+  </div>
 </div>
