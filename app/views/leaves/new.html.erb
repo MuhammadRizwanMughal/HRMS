@@ -1,16 +1,54 @@
+<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
+<script type="text/javascript">
+  $(document).ready(function (){
+    $("#leave_form").validate({
+      errorPlacement: function (error, element) {
+        error.insertAfter(element);
+      },
+      rules: {
+        "leave[sdate]":{
+          required: true,
+        },
+        "leave[edate]":{
+          required: true,
+        },
+        "leave[leave_type]":{
+          required: true
+        }
+      },
+      messages: {
+        "leave[sdate]":{
+          required: " Start date is required.",
+        },
+        "leave[edate]":{
+          required: " End date is required.",
+        },
+        "leave[leave_type]":{
+          required: " Please select an appropriate type of leave."
+        }
+      }
+    })
+  });
+
+</script>
+
+<script type="text/javascript">
+  $( "select" ).change(function () {    
+  document.getElementById("select_show").innerHTML="You selected: "+document.getElementById("leave_leave_type").value;  
+  });  
+</script>
+
 <div class="container-fluid">
-  <h1>Users#id#Leaves#new</h1>
   <p><%= link_to 'Back',user_path(@user) %> to details.</p>
 
   <h2>Apply for Leave</h2>
 
   <%= form_with(model: [ @user, @user.leaves.build ], local: true, id: 'leave_form') do |form| %>
-
     <p>
       Leave Type<br>
-      <%= form.select :leave_type, options_for_select([['Casual Leave', 'Casual Leave'], ['Sick/Medical Leave', 'Sick/Medical Leave'], ['Privilege Leave', 'Privilege Leave' ]]) %>
+      <%= form.select :leave_type, options_for_select([['Please select a leave type', ''],['Casual Leave', 'Casual Leave'], ['Sick/Medical Leave', 'Sick/Medical Leave'], ['Privilege Leave', 'Privilege Leave' ]], :selected => ['Please select a leave type', '']) %>
     </p>
-
+    <span id="select_show"></span>  
     <p>
       Start Date<br>
       <%= form.date_field :sdate, min: Date.today %>
@@ -18,7 +56,7 @@
    
     <p>
       End Date<br>
-      <%= form.date_field :edate, max: Date.today + @user.leave_left - 1, min: Date.today %>
+      <%= form.date_field :edate, min: Date.today %>
     </p>
 
     <p>

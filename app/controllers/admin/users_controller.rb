@@ -1,4 +1,5 @@
 class Admin::UsersController < ApplicationController
+  # before_action :check_admin_presence, :only => :index
   def index
 		@users = User.all
 	end
@@ -13,13 +14,14 @@ class Admin::UsersController < ApplicationController
 
   def destroy
   		@user = User.find_by_id(params[:id])
-  		@user.destroy
+  		binding.pry
+      @user.destroy
   		redirect_to admin_users_path
   end
 
-  def check_admin_presence
-    if current_user.present?
-      redirect_to admin_users_path
-    end
-  end
+  # def check_admin_presence
+  #   if current_user.present?
+  #     redirect_to admin_users_path
+  #   end
+  # end
 end

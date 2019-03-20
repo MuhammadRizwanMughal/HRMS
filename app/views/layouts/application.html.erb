@@ -2,14 +2,65 @@
 <html>
   <head>
     <title>Project</title>
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript">
+    </script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-  </head>
+    
+    <style type="text/css">
+      #user_circle{
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background-color: darkgreen;
+        font-size: 20px;
+        color: white;
+        padding-top: 12px;
+        font-style: bold;
+        margin-top: 3px;
+      }
+    </style>
 
+  </head>
   <body>
+
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand">HRMS</a>
+        </div>
+        <ul class="nav navbar-nav">
+          <li><%= link_to 'Home', root_path%></li>
+        </ul>
+        <% if current_user.present? %>
+          <ul class="nav navbar-nav navbar-right">
+            <li><a id="user_circle"><strong><%= current_user.fname[0].capitalize %></strong></a></li>
+            <li class="dropdown">
+              <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+              <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <% if current_user.admin == true %>
+                  <li><%= link_to 'Dashboard', admin_users_path(@user) %></li>
+                  <li><%= link_to 'SignOut',  destroy_user_session_path, method: :delete %></li>
+                <% elsif current_user.admin != true %>
+                <% binding.pry %>
+                  <li><%= link_to 'Dashboard', user_path(@user) %></li>
+                  <li><%= link_to 'SignOut', destroy_user_session_path, method: :delete %></li>
+                <% end %>
+              </ul>
+            </li>
+          </ul>
+        <% else %>
+          <ul class="nav navbar-nav navbar-right">
+            <li><%= link_to 'SignIn', new_user_session_path %></li>
+            <li><%= link_to 'SignUp', new_user_registration_path %></li>
+          </ul>
+        <% end %>
+      </div>
+    </nav>  
+    
+    
     <%= render 'layouts/alerts' %>
     <%= yield %>
   </body>

@@ -6,7 +6,8 @@ class UsersController < ApplicationController
 
   def show
   	@user = User.find_by_id(params[:id])
-  	@leave = @user.leaves
+  	@leaves = @user.leaves
+  	@leave = @user.leaves.find_by_id(:id)
   end
   
   def check_current_user_callback

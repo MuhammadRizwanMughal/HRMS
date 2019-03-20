@@ -1,4 +1,5 @@
-<div class="container-fluid">
+<% if notice %>
 	<p class="notice"><%= notice %></p>
+<% elsif %>
 	<p class="alert"><%= alert %></p>
-</div>
+<% end %>

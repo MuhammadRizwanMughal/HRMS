@@ -2,15 +2,15 @@
 <% if @user.leaves.present? %>
 	<table class="table-bordered table-striped table-hover table-condensed table-responsive">
 		<tr>
+				<th>Day Count</th>
 				<th>Start Date</th>
 				<th>End Date</th>
-				<th>Day Count</th>
 				<th>Status</th>
 				<th>Description</th>
 		</tr>
 			<% @leaves.each do |l| %>
 		<tr>
-			<td><%= (l.edate + 1 - l.sdate).to_i %></td>
+			<td><%= (l.sdate.business_days_until(l.edate)).to_i + 1 %></td>
 			<td><%= l.sdate %></td>
 			<td><%= l.edate %></td>
 			<td><%= l.status %></td>

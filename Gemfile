@@ -4,6 +4,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '2.6.0'
 
 gem 'devise'
+gem 'business_time'
 gem 'bootstrap-sass'
 gem 'autoprefixer-rails'
 gem 'jquery-validation-rails'

@@ -1,6 +1,8 @@
 # frozen_string_literal: true
-
 class Users::SessionsController < Devise::SessionsController
+    # skip_before_action :verify_authenticity_token
+    # protect_from_forgery prepend: true, with: :exception
+    # before_action :authenticate_user!
   # before_action :configure_sign_in_params, only: [:create]
   # GET /resource/sign_in
   # def new

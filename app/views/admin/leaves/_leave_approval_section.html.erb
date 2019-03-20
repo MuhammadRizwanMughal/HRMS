@@ -7,7 +7,7 @@
 	<% end %>
 <% end %>
 
-<% if @temp != 0 %>
+<% if @temp == 1 %>
 	<h1>Approval Section</h1>
 	<table  class="table-bordered table-striped table-hover table-condensed table-responsive">
 		<tr>
@@ -21,7 +21,7 @@
 		<% @leaves.each do |l| %>
 				<% if l.status == 'pending' %>
 				<tr>
-					<td><%= (l.edate + 1 - l.sdate).to_i %></td>
+					<td><%= (l.sdate.business_days_until(l.edate)).to_i + 1 %></td>
 					<td><%= l.sdate %></td>
 					<td><%= l.edate %></td>
 					<td><%= l.status %></td>
