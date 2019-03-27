@@ -1,3 +1,11 @@
+<style type="text/css">
+	td{
+		font-weight: bold;
+		font-size: 15px;
+		text-align: center;
+	}
+</style>
+
 <div class="container">
 	<% if User.count == 0 || User.count < 0 %>
 		<p> No Users to show </p>
@@ -5,6 +13,7 @@
 		<h1>Dashboard</h1>
 		<table class="table-striped table-hover table-condensed table-responsive">
 			<tr>
+				<th>Picture</th>
 				<th>User#ID</th>
 				<th>Firstname</th>
 				<th>Lastname</th>
@@ -22,6 +31,7 @@
 			<tr>
 				<% @users.each do |u| %>
 					<% if u.admin != true %>
+						<td><%= image_tag u.avatar.url, :size => "100x100" %></td>
 						<td><%= u.id %></td>
 						<td><%= u.fname %></td>
 						<td><%= u.lname %></td>

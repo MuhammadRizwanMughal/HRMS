@@ -13,8 +13,8 @@
       .badge-notify{
         background:red;
         position:relative;
-        top: -10px;
-        left: -5px;
+        top: -13px;
+        left: -13px;
       }
       #user_action_dropdown{
         width: 150px;
@@ -72,7 +72,7 @@
             <li><a id="user_circle"><strong><%= current_user.fname[0].capitalize %></strong></a></li>
             <li class="dropdown">
               <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="user_action_dropdown_toggle">
-              <span class="caret"></span></a>
+              </a>
               <ul class="dropdown-menu" id="user_action_dropdown">
                 <% if current_user.admin == true %>
                   <li><%= link_to 'Dashboard', admin_users_path(@user) %></li>
@@ -86,7 +86,7 @@
           </ul>
           <ul class="nav navbar-nav navbar-right">
             <div id ="notifications_dropdown_section">
-              <%= render 'layouts/navbar_notifications_dropdown.html' %> 
+              <%= render 'layouts/navbar_notifications_dropdown' %> 
             </div>
           </ul>
         <% else %>
