@@ -1,5 +1,6 @@
 class HomeController < ApplicationController
   before_action :check_current_user_callback
+  before_action :authenticate_user!
   def index
   end
 

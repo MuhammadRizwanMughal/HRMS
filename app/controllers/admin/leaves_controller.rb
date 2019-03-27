@@ -1,4 +1,5 @@
 class Admin::LeavesController < ApplicationController
+  before_action :authenticate_user!
   def index
     @user = User.find(params[:user_id]) 
     @leaves = @user.leaves
@@ -24,31 +25,38 @@ class Admin::LeavesController < ApplicationController
     case params["leave_approval_decision"]
     when 'Approve'
       if @leave.leave_type == 'Casual Leave'
-        @user.user_leave_distribution.c_leave = @user.user_leave_distribution.c_leave - @leave.sdate.business_days_until(@leave.edate)
-        @user.user_leave_distribution.save
-        @leave.status = 'Approved'
-        @leave.save
-        @user.save
-        # flash[:notice] = "Casual leave application of #{@user.fname + ' ' + @user.lname} for #{@leave.sdate.business_days_until(@leave.edate) + 1} days from #{@sdate} to #{@edate} was approved successfull !!"  
+        if @leave.sdate == @leave.edate
+          @user.user_leave_distribution.c_leave = @user.user_leave_distribution.c_leave - 1
+        else
+          @user.user_leave_distribution.c_leave = @user.user_leave_distribution.c_leave - (@leave.sdate.business_days_until(@leave.edate) + 1)
+        end
       elsif @leave.leave_type == 'Priviledge Leave'
-        binding.pry
-        @user.user_leave_distribution.p_leave = @user.user_leave_distribution.p_leave - @leave.sdate.business_days_until(@leave.edate)
-        @user.user_leave_distribution.save
-        @leave.status = 'Approved'
-        @leave.save
-        @user.save
+        if @leave.sdate == @leave.edate
+          @user.user_leave_distribution.p_leave = @user.user_leave_distribution.p_leave - 1
+        else
+          @user.user_leave_distribution.p_leave = @user.user_leave_distribution.p_leave - (@leave.sdate.business_days_until(@leave.edate) + 1)
+        end
       else
-        @user.user_leave_distribution.s_leave = @user.user_leave_distribution.s_leave - @leave.sdate.business_days_until(@leave.edate)
+        if @leave.sdate == @leave.edate
+          @user.user_leave_distribution.s_leave = @user.user_leave_distribution.s_leave - 1
+        else          
+          @user.user_leave_distribution.s_leave = @user.user_leave_distribution.s_leave - (@leave.sdate.business_days_until(@leave.edate) + 1)
+        end
+      end
+        notification = Notification.create(receiver: @user, actor: current_user, action: "Application for Leave of #{@leave.sdate.business_days_until(@leave.edate) + 1} days from #{@leave.sdate} to #{@leave.edate} was successfull approved.", notifiable: @leave)
+        notification.save
         @user.user_leave_distribution.save
         @leave.status = 'Approved'
         @leave.save
         @user.save
-      end
     when 'Denied'
+      notification = Notification.create(receiver: @user, actor: current_user, action: "Application for Leave of #{@leave.sdate.business_days_until(@leave.edate) + 1} days from #{@leave.sdate} to #{@leave.edate} was denied", notifiable: @leave)
+      notification.save
       @leave.status = 'Denied'
       @leave.save
       @user.save
-    end
+    end 
+      LeaveApplicationMailer.sample_email(@user, @leave).deliver_later
   end
 
   private
@@ -56,13 +64,3 @@ class Admin::LeavesController < ApplicationController
   	params.require(:leave).permit(:type, :sdate, :edate, :description)
   end
 end
-    #   if @leave.sdate == @leave.edate
-    #     @user.leave_left = @user.leave_left - 1
-    #     @user.leaves_taken = @user.leaves_taken + 1
-    #   else
-    #     @user.leave_left  = @user.leave_left + (-1) - (@leave.sdate.business_days_until(@leave.edate))
-    #     @user.leaves_taken = @user.leaves_taken + 1 + (@leave.sdate.business_days_until(@leave.edate))
-    #   end
-    #     @leave.status = 'Approved'
-    #     @leave.save
-    #     @user.save

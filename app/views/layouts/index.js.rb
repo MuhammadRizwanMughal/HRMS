@@ -1,0 +1,1 @@
+$("#notifications_dropdown_section").html('<%= j render "navbar_notifications_dropdown.html" %>')

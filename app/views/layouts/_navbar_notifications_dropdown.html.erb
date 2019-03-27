@@ -1,0 +1,28 @@
+<style type="text/css">
+  #notifications_dropdown_menu{
+    width: 400px;
+    padding: 15px;
+  }
+  #notifications_dropdown{
+    padding: 15px;
+  }
+</style>
+
+<li class="dropdown" id="notifications_dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+    <span class="glyphicon glyphicon-bell" id="bell"></span>
+    <% if current_user.notifications.where(read_at: nil).count > 0 %>
+      <span class="badge badge-notify"><%= current_user.notifications.where(read_at: nil).count %></span>
+    <% end %>
+  </a>
+  <ul class="dropdown-menu" id="notifications_dropdown_menu">
+    <% if current_user.notifications.where(read_at: nil).count > 0 %>
+      <% current_user.notifications.where(read_at: nil).each do |n| %>
+        <li><%= n.action %></li>
+      <% end %><br>
+      <%= button_to "Mark all read", notifications_path, :method => :get, remote: true, :class=> "btn btn-info"%>
+    <% else %>
+      <li>No unread notifiactions</li>
+    <% end %>
+  </ul>
+</li>

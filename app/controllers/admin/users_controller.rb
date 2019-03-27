@@ -1,5 +1,5 @@
 class Admin::UsersController < ApplicationController
-  # before_action :check_admin_presence, :only => :index
+  before_action :authenticate_user!
   def index
 		@users = User.all
 	end
@@ -17,10 +17,4 @@ class Admin::UsersController < ApplicationController
       @user.destroy
   		redirect_to admin_users_path
   end
-
-  # def check_admin_presence
-  #   if current_user.present?
-  #     redirect_to admin_users_path
-  #   end
-  # end
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_03_20_105658) do
+ActiveRecord::Schema.define(version: 2019_03_27_105652) do
 
   create_table "leaves", force: :cascade do |t|
     t.date "sdate"
@@ -22,6 +22,17 @@ ActiveRecord::Schema.define(version: 2019_03_20_105658) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_leaves_on_user_id"
+  end
+
+  create_table "notifications", force: :cascade do |t|
+    t.integer "receiver_id"
+    t.integer "actor_id"
+    t.datetime "read_at"
+    t.string "action"
+    t.integer "notifiable_id"
+    t.string "notifiable_type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "user_leave_distributions", force: :cascade do |t|
@@ -57,6 +68,10 @@ ActiveRecord::Schema.define(version: 2019_03_20_105658) do
     t.string "leave_status", default: "none"
     t.integer "leaves_taken", default: 0
     t.integer "leave_taken"
+    t.string "avatar_file_name"
+    t.string "avatar_content_type"
+    t.bigint "avatar_file_size"
+    t.datetime "avatar_updated_at"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

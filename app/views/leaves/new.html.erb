@@ -33,9 +33,9 @@
 </script>
 
 <script type="text/javascript">
-  $( "select" ).change(function () {    
-  document.getElementById("select_show").innerHTML="You have selected: "+document.getElementById("leave_leave_type").value;  
-  });  
+  $("select").change(function(){    
+    document.getElementById("select_show").innerHTML="You have selected: "+document.getElementById("leave_leave_type").value;  
+  });
 </script>
 
 <div class="container">
@@ -43,7 +43,7 @@
     <div class="col-md-6">
       <p><%= link_to 'Back',user_path(@user) %> to details.</p>
 
-      <h2>Apply for Leave</h2>
+      <h3>Apply for Leave</h3>
 
       <%= form_with(model: [ @user, @user.leaves.build ], local: true, id: 'leave_form') do |form| %>
         <p>
@@ -60,7 +60,7 @@
           End Date<br>
           <%= form.date_field :edate, min: Date.today %>
         </p>
-
+        <span id="date_error_show"></span>
         <p>
           Description<br>
           <%= form.text_area :description %>
@@ -72,9 +72,9 @@
       <% end %>
     </div>
     <div class="col-md-6">
-      <br><br>  
+      <br> 
       <h3>Leaves left:</h3>
-      <table class = "table-bordered table-striped table-hover table-condensed table-responsive">
+      <table class = "table-striped table-hover table-condensed table-responsive">
         <tr>
           <th>Casual leave</th>
           <th>Priviledge leave</th>

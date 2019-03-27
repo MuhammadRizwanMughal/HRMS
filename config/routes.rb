@@ -14,14 +14,11 @@ Rails.application.routes.draw do
 		end
 	end
 
-	# get '/admin/users/:id/leaves/:id', to: 'leaves#approve'
-	
-	# namespace :user do
 	resources :users, only: [:index, :show] do
 		resources :leaves
 	end
-	# end
-	# resources :users
 
-
+	resources :notifications do
+		get 'clear_notifications'
+	end
 end

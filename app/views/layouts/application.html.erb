@@ -5,10 +5,27 @@
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript">
     </script>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+     <link href="https://fonts.googleapis.com/css?family=Merriweather|Ubuntu" rel="stylesheet"> 
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
     
     <style type="text/css">
+      .badge-notify{
+        background:red;
+        position:relative;
+        top: -10px;
+        left: -5px;
+      }
+      #user_action_dropdown{
+        width: 150px;
+      }
+      #user_action_dropdown_toggle{
+        margin: 8px 8px 8px 0px;
+      }
+      #bell{
+        margin-top: 5px;
+        font-size: 25px;
+      }
       #user_circle{
         width: 40px;
         height: 40px;
@@ -18,12 +35,30 @@
         color: white;
         padding-top: 12px;
         font-style: bold;
-        margin-top: 3px;
+        margin-top: 12px;
+      }
+      h1, h3, h4{
+        font-family: Ubuntu;
+      }
+      th{
+        font-family: 'Merriweather', serif;
+        text-align: center;
+        background-color: lightgrey;
+        border:1px solid black;
+      }
+      td{
+        text-align: right; 
+        margin: 20px;
+        border:1px solid grey;
+      }
+      table{
+        border:1px solid black;
       }
     </style>
 
   </head>
   <body>
+
     <nav class="navbar navbar-default">
       <div class="container-fluid">
         <div class="navbar-header">
@@ -36,9 +71,9 @@
           <ul class="nav navbar-nav navbar-right">
             <li><a id="user_circle"><strong><%= current_user.fname[0].capitalize %></strong></a></li>
             <li class="dropdown">
-              <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+              <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="user_action_dropdown_toggle">
               <span class="caret"></span></a>
-              <ul class="dropdown-menu">
+              <ul class="dropdown-menu" id="user_action_dropdown">
                 <% if current_user.admin == true %>
                   <li><%= link_to 'Dashboard', admin_users_path(@user) %></li>
                   <li><%= link_to 'SignOut',  destroy_user_session_path, method: :delete %></li>
@@ -49,6 +84,11 @@
               </ul>
             </li>
           </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <div id ="notifications_dropdown_section">
+              <%= render 'layouts/navbar_notifications_dropdown.html' %> 
+            </div>
+          </ul>
         <% else %>
           <ul class="nav navbar-nav navbar-right">
             <li><%= link_to 'SignIn', new_user_session_path %></li>
@@ -56,7 +96,7 @@
           </ul>
         <% end %>
       </div>
-    </nav>  
+    </nav>
     <%= render 'layouts/alerts' %>
     <%= yield %>
   </body>

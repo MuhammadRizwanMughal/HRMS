@@ -9,6 +9,7 @@ gem 'bootstrap-sass'
 gem 'autoprefixer-rails'
 gem 'jquery-validation-rails'
 gem 'jquery-rails'
+gem "paperclip"
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.2.2'
 # Use sqlite3 as the database for Active Record
@@ -55,6 +56,7 @@ group :development do
   gem 'spring'
   gem 'pry-rails'
   gem 'spring-watcher-listen', '~> 2.0.0'
+  gem "letter_opener", :group => :development
 end
 
 group :test do

@@ -13,6 +13,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # POST /resource
   def create
     super
+    binding.pry
     @user = User.new(configure_sign_up_params)
   end
 
@@ -50,7 +51,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # If you have extra params to permit, append them to the sanitizer.
   def configure_sign_up_params
-    devise_parameter_sanitizer.permit(:sign_up, keys: [:fname, :lname, :uname, :email, :mobile, :address, :dob, :password, :gender, :attribute])
+    binding.pry
+    devise_parameter_sanitizer.permit(:sign_up, keys: [:fname, :lname, :uname, :email, :mobile, :address, :dob, :password, :gender, :avatar, :attribute])
   end
 
   # If you have extra params to permit, append them to the sanitizer.

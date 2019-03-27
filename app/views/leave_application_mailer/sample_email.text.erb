@@ -1,0 +1,10 @@
+Dear <%= @user.fname.capitalize %>,
+We are writing in response to your leave application dated <%=@leave.sdate %> to <%=@leave.edate%>. 
+The management has reviewed your application.
+Your leave has been <% if @leave.status == 'Approved' %>Approved.<% else %>Denied.<% end %>
+
+Best regards,
+XYZ
+HR Manager
+Protonshub Technologies
+    

@@ -1,0 +1,15 @@
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>Dear <%= @user.fname.capitalize %>,</h1>
+    <p>We are writing in response to your leave application dated <%=@leave.sdate %> to <%=@leave.edate%>.<br>The management has reviewed your application.<br>Your leave has been <% if @leave.status == 'Approved' %><span style="color: green;"><strong>Approved.</strong></span><% else %><span style="color: orange; "><strong>Denied.</strong></span><% end %><br><br>
+		Best regards,<br>
+		XYZ<br>
+		HR Manager<br><br>
+
+		Protonshub Technologies
+    </p>
+  </body>
+</html>
