@@ -18,7 +18,6 @@
   <ul class="dropdown-menu" id="notifications_dropdown_menu">
     <% if current_user.notifications.where(read_at: nil).count > 0 %>
       <% current_user.notifications.where(read_at: nil).each do |n| %>
-      <% binding.pry %>
         <li><strong><%= n.action %></strong></li>
       <% end %><br>
       <%= link_to "Mark all read", notifications_path, :method => :get, remote: true, :class=> "btn btn-info"%>

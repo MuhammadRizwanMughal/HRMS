@@ -8,4 +8,10 @@ class ApplicationController < ActionController::Base
     	user_path(resource)
     end
   end
+
+  require "prawn"
+
+Prawn::Document.generate("hello.pdf") do
+  text "Hello World!"
+end
 end

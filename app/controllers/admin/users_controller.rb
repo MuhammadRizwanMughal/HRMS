@@ -9,7 +9,16 @@ class Admin::UsersController < ApplicationController
     if @user.admin == true
       redirect_to admin_users_path
     end
-    @leave = @user.leaves
+
+    respond_to do |format|
+      format.html
+      format.pdf do 
+        pdf = UserDetailPdf.new(@user)
+        send_data pdf.render, filename: "#{@user.fname+' '+@user.lname}'s details.pdf",
+                              type: "application/pdf",
+                              disposition: "inline"
+      end
+    end 
   end
 
   def destroy

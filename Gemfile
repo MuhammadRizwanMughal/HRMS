@@ -3,6 +3,8 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.6.0'
 
+gem 'prawn'
+gem 'prawn-table'
 gem 'devise'
 gem 'business_time'
 gem 'bootstrap-sass'
